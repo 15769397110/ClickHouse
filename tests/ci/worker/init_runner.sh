@@ -40,7 +40,7 @@ cat > /tmp/actions-hooks/post-run.sh << 'EOF'
 set -xuo pipefail
 
 # Free KiB, free percents
-ROOT_STAT=($(df / | awk '/\// {print $4 " " int($3/$2 * 100)}'))
+ROOT_STAT=($(df / | awk '/\// {print $4 " " int($4/$2 * 100)}'))
 if [[ ${ROOT_STAT[0]} -lt 3000000 ]] || [[ ${ROOT_STAT[1]} -lt 5 ]]; then
   echo "Going to terminate the runner, it has ${ROOT_STAT[0]}KiB and ${ROOT_STAT[1]}% of free space on /"
   INSTANCE_ID=$(ec2metadata --instance-id)
